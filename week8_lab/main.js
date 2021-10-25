@@ -56,14 +56,48 @@
   
  
   function onLoad() {
-  
-    let animal = generateRandomAnimal();
-    // displaying a random animal
-    console.log(animal)
-    // display the animal's properties
-    document.getElementById("animal-properties").textContent = "Name:" + animal.name + ", " + animal.age + "years old";
-    let imageTag = document.getElementById("animal-img");
-    imageTag.setAttribute("src", animal.image);
-    imageTag.setAttribute("alt", animal.image_alt);
+
+    var animal = JSON.parse(localStorage.getItem("savedAnimal"));
+    var savedAnimal = false; //flag if saved
+
+  //does animal exist in local storage?
+  if (animal === null) 
+  {
+    document.getElementById("storage-button").textContent = "Save";
+    animal = generateRandomAnimal();
+  } 
+  else 
+  {
+    document.getElementById("storage-button").textContent = "Clear Me";
+    savedAnimal = true;
+  }
+
+  document.getElementById("animal-properties").textContent = "Name:" + animal.name + ", " + animal.age + "years old";
+  document.getElementById("animal-img").setAttribute("src", animal.image);
+
+
+  document.getElementById("storage-button").addEventListener("click", function() {
+
+    if (savedAnimal) 
+    {
+      // clearing from local storage
+      localStorage.removeItem("savedAnimal");
+
+      //hide button and show message to user
+      document.getElementById("storage-button").style.display = "none";
+      document.getElementById("feedback").textContent = "Cleared!";
+      document.getElementById("feedback").style.display = "block";
+    }
+    //when we save the animal
+    else 
+    {
+      localStorage.setItem("savedAnimal", JSON.stringify(animal));
+
+      //hide button and show message to user
+      document.getElementById("storage-button").style.display = "none";
+      document.getElementById("feedback").textContent = "Saved!";
+      document.getElementById("feedback").style.display = "block";
+    }
+  });
   
   }

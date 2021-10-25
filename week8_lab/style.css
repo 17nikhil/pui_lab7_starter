@@ -17,3 +17,15 @@ h1 {
     border: 5px solid black;
     border-radius: 5px;
 }
+
+button {
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-size: 30px;
+    margin: 20px;
+}
+
+#bfeedback {
+    display: none;
+}
